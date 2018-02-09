@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#  Start psql command !   
+#  Start psql command !
 
 set -o errexit
 set -o pipefail
@@ -8,13 +8,13 @@ set -o nounset
 
 max_tries=40
 tries=0
-while ! pg_isready -q -d $POSTGRES_DB -h $POSTGRES_HOST -U $POSTGRES_USER
+while ! pg_isready -q -d $POSTGRES_DB -h $POSTGRES_HOST -U $POSTGRES_USER -p $POSTGRES_PORT
 do
     tries=$((tries + 1))
     if [ $tries -gt $max_tries ]; then
-        echo "... Gave up , No connections with :  pg_isready -d $POSTGRES_DB -h $POSTGRES_HOST -U $POSTGRES_USER  "
+        echo "... Gave up , No connections with :  pg_isready -d $POSTGRES_DB -h $POSTGRES_HOST -U $POSTGRES_USER -p $POSTGRES_PORT"
         exit 1
-    fi    
+    fi
     sleep 2
 done
 
